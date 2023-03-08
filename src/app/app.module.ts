@@ -1,14 +1,28 @@
-import { NgModule } from '@angular/core';
+import { isDevMode, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+// NgRx
+import { StoreModule, Action } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { contadorReducer } from './contador/contador.reducer';
+
 import { AppComponent } from './app.component';
+import { HijoComponent } from './contador/hijo/hijo.component';
+import { NietoComponent } from './contador/nieto/nieto.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HijoComponent,
+    NietoComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    StoreModule.forRoot({contador: contadorReducer}),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: !isDevMode(), // Restrict extension to log-only mode
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
